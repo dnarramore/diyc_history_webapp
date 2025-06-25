@@ -1,0 +1,11 @@
+Start the EC2 instance
+RDP to it (you might need a new RDP file).  password comes from the DIYCHISTORY_keypair.pem on my local machine.  
+The RDP tab in AWS/EC2 will create it for you given the .pem file
+
+On the remote server, start CMD, and navigate to Apache24/bin, then run httpd.exe
+
+Open VS Code and navigate to the Python home: C:\Users\Administrator\Appdata\Local\Microsoft\WindowsApps\Python... something
+
+In the terminal, run python app.py
+
+then open a browser and open http://localhost:5000
