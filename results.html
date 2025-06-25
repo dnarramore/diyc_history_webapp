@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if results %}
+     <table>
+        <thead>
+            <style>
+         th {
+              text-align: left; 
+        }
+         </style>
+            <tr>
+                <th>File Name</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+
+        <tbody>
+           {% for row in results %}
+           
+              {% for d in row %}
+              <tr>
+                 {% set file_name = d.keys()  | first %}
+
+                 
+                    <td>{{ d[file_name] }}</td>
+                       {% set URL = d.keys()  |  last %} 
+
+                    <td>
+                      <!--   <a href= {{d[URL]}}>{{d[URL]}} </a> -->
+
+                         <a href= {{d[URL] | replace(" ", "%20")}} >{{d[URL] | replace(" ", "%20")}}  </a>
+
+                      
+                    </td>
+
+
+                    <!--<td>{{d }}</td> -->
+
+               </tr> 
+              {% endfor %}
+           
+           <br>
+           {% endfor %}
+        </tbody>
+      </table>
+
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+
+
+   <!-- {% if results %}
+        <ul>
+            {% for row in results %}
+                <li>{{ row }}</li>  {# Display the search results #}
+            {% endfor %}
+        </ul> -->
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

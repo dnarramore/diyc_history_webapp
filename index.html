@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DIYC HISTORY Search</title>
+</head>
+<body>
+    <h1>Search DIYC History Documents</h1>
+    <form method="POST" action="/search">
+       <label for="document_type">Document Type:</label>
+       <select id="document_type" name="document_type">
+          <option value="COMMODORE">Commodore</option>
+          <option value="FLAG_AND_BOARD">Flag and Board</option>
+          <option value="LOGS">Logs</option>
+          <option value="MINUTES">Minutes</option>
+          <option value="NEWSPAPER_CLIPPINGS">Newspaper Clippings</option>
+          <option value="OTHER">Other</option>
+          <option value="PICTURES_AND_EVENTS">Pictures and Events</option>
+          <option value="PRE_HISTORY">Pre-history</option>
+          <option value="SAILING">Saliing</option>
+       </select>
+
+        <br>
+        <br>
+        <label for="year">Year:</label>
+        <input type="text" name="year">
+        <br>
+        <br>
+        <label for="year">Search term:</label>
+        <input type="text" name="search_term">
+        <br>
+        <br>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
