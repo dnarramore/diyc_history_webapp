@@ -53,15 +53,18 @@
         <p>No results found.</p>
     {% endif %}
 
-
-   <!-- {% if results %}
-        <ul>
-            {% for row in results %}
-                <li>{{ row }}</li>  {# Display the search results #}
-            {% endfor %}
-        </ul> -->
     {% else %}
         <p>No results found.</p>
     {% endif %}
 </body>
+
+   <!-- Pagination controls -->
+    <div>
+
+        <a href="{{ url_for('paginate', page=page - 1, per_page=per_page, document_type=document_type
+        ,year=year,search_term=search_term)}}">Previous</a>
+        <a href="{{ url_for('paginate', page=page + 1, per_page=per_page, document_type=document_type
+        ,year=year,search_term=search_term)}}">Next</a>  
+    </div>
+
 </html>
