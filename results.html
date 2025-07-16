@@ -1,70 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Search Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #003366;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #003366;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .pagination {
+            text-align: center;
+            margin: 30px auto;
+        }
+
+        .pagination a {
+            margin: 0 10px;
+            padding: 10px 15px;
+            background: #003366;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .pagination a:hover {
+            background: #005599;
+        }
+
+        .message {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <h1>Search Results</h1>
+
     {% if results %}
-     <table>
+    <table>
         <thead>
-            <style>
-         th {
-              text-align: left; 
-        }
-         </style>
             <tr>
                 <th>File Name</th>
                 <th>URL</th>
             </tr>
         </thead>
-
-        <tbody>
-           {% for row in results %}
-           
-              {% for d in row %}
-              <tr>
-                 {% set file_name = d.keys()  | first %}
-
-                 
-                    <td>{{ d[file_name] }}</td>
-                       {% set URL = d.keys()  |  last %} 
-
-                    <td>
-                      <!--   <a href= {{d[URL]}}>{{d[URL]}} </a> -->
-
-                         <a href= {{d[URL] | replace(" ", "%20")}} >{{d[URL] | replace(" ", "%20")}}  </a>
-
-                      
-                    </td>
-
-
-                    <!--<td>{{d }}</td> -->
-
-               </tr> 
-              {% endfor %}
-           
-           <br>
-           {% endfor %}
-        </tbody>
-      </table>
-
+       <tbody>
+    {% for row in results %}
+        {% for file_name, file_url in row %}
+            <tr>
+                <td>{{ file_name }}</td>
+                <td>
+                    <a href="{{ file_url | replace(' ', '%20') }}" target="_blank">
+                        {{ file_url | replace(' ', '%20') }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        <br>
+    {% endfor %}
+</tbody>
+    </table>
     {% else %}
-        <p>No results found.</p>
+    <p class="message">No results found.</p>
     {% endif %}
 
-    {% else %}
-        <p>No results found.</p>
-    {% endif %}
-</body>
-
-   <!-- Pagination controls -->
-    <div>
-
-        <a href="{{ url_for('paginate', page=page - 1, per_page=per_page, document_type=document_type
-        ,year=year,search_term=search_term)}}">Previous</a>
-        <a href="{{ url_for('paginate', page=page + 1, per_page=per_page, document_type=document_type
-        ,year=year,search_term=search_term)}}">Next</a>  
+    <div class="pagination">
+        <a href="{{ url_for('paginate', page=page - 1, per_page=per_page, document_type=document_type, year=year, search_term=search_term) }}">Previous</a>
+        <a href="{{ url_for('paginate', page=page + 1, per_page=per_page, document_type=document_type, year=year, search_term=search_term) }}">Next</a>
     </div>
-
+</body>
 </html>
