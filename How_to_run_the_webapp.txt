@@ -12,4 +12,4 @@ In the terminal, run python app.py
 
 From the local RDP machine, open http://localhost:8080/
 
-remotl;y, then open a browser and open http://3.88.58.126:8080  (The IP address might change, so change it as needed.
+remotl;y, then open a browser and open http://http://52.2.49.89:8080  (52.2.49.89 is the static IP address)
