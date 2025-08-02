@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from waitress import serve
 import mysql.connector
 
 
@@ -31,7 +32,7 @@ def index():
 def search():
 
     #print('args ' + request.args.get('document_type', ''))
-    print('args ' + request.form['document_type'])
+    #print('args ' + request.form['document_type'])
 
     if request.form['document_type'] == "":
     #if request.args.get('document_type', '') == "":
@@ -63,13 +64,19 @@ def search():
 
     conn = get_db_connection()
     if conn:
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor(dictionary=False)
 
         cursor.callproc('GET_HISTORY_DOCUMENT', (year_input, document_type_input, search_term_input, per_page, offset))
+
 
         results = []
         for result in cursor.stored_results():
            results.append(result.fetchall())
+           #results = result.fetchall()
+
+
+           for row in results:
+              print(row)
 
 
         cursor.close()
@@ -119,7 +126,7 @@ def paginate():
 
     conn = get_db_connection()
     if conn:
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor(dictionary=False)
 
         cursor.callproc('GET_HISTORY_DOCUMENT', (year_input, document_type_input, search_term_input, per_page, offset))
 
@@ -137,6 +144,7 @@ def paginate():
         
     else:
         return "Error connecting to the database."
+    
 
 if __name__ == '__main__':
-    app.run(debug=True)
+        serve(app, host='0.0.0.0', port=8080)
