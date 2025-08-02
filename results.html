@@ -86,12 +86,12 @@
         </thead>
        <tbody>
     {% for row in results %}
-        {% for file_name, file_url in row %}
+        {% for item1, item2 in row %}
             <tr>
-                <td>{{ file_name }}</td>
+                <td>{{ item1 }}</td>
                 <td>
-                    <a href="{{ file_url | replace(' ', '%20') }}" target="_blank">
-                        {{ file_url | replace(' ', '%20') }}
+                    <a href="{{ item2 | replace(' ', '%20') }}" target="_blank">
+                        {{ item2 | replace(' ', '%20') }}
                     </a>
                 </td>
             </tr>
