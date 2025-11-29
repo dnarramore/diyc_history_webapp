@@ -105,8 +105,15 @@
     {% endif %}
 
     <div class="pagination">
-        <a href="{{ url_for('paginate', page=page - 1, per_page=per_page, document_type=document_type, year=year, search_term=search_term) }}">Previous</a>
-        <a href="{{ url_for('paginate', page=page + 1, per_page=per_page, document_type=document_type, year=year, search_term=search_term) }}">Next</a>
+        {% if has_prev %}
+           <a href="{{ url_for('paginate', page=page - 1, per_page=per_page, document_type=document_type, year=year, search_term=search_term) }}">Previous</a>
+        {% endif %}
+
+        {% if has_next %}
+           <a href="{{ url_for('paginate', page=page + 1, per_page=per_page, document_type=document_type, year=year, search_term=search_term) }}">Next</a>
+        {% endif %}
+        
     </div>
 </body>
 </html>
+
