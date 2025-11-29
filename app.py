@@ -75,15 +75,22 @@ def search():
            #results = result.fetchall()
 
 
-           for row in results:
-              print(row)
+           #for row in results:
+              #print(row)
 
+        print('offset ' + str(offset))
+
+        cursor.callproc('GET_HISTORY_DOCUMENT_COUNT', (year_input, document_type_input, search_term_input, offset + per_page))
+        
+        has_next = 0
+        for result in cursor.stored_results():
+             has_next = result.fetchone()
 
         cursor.close()
         conn.close()
 
         return render_template('results.html', results=results, page=page, per_page=per_page, document_type=document_type_input, 
-                              year=year_input,search_term=search_term_input )
+                              year=year_input,search_term=search_term_input, has_next = has_next, has_prev = False)
 
         
     else:
@@ -128,18 +135,31 @@ def paginate():
     if conn:
         cursor = conn.cursor(dictionary=False)
 
+        print('offset before call ' + str(offset))
+
         cursor.callproc('GET_HISTORY_DOCUMENT', (year_input, document_type_input, search_term_input, per_page, offset))
 
         results = []
         for result in cursor.stored_results():
            results.append(result.fetchall())
 
+        cursor.callproc('GET_HISTORY_DOCUMENT_COUNT', (year_input, document_type_input, search_term_input, offset + per_page))
+   
+        has_next = 0
+        for result in cursor.stored_results():
+             has_next = result.fetchone()
+             print('has_next = ')
+             print(has_next) 
+             if has_next is None:
+                has_next is False 
+
+        has_prev = page > 1
 
         cursor.close()
         conn.close()
 
         return render_template('results.html', results=results, page=page, per_page=per_page, document_type=document_type_input, 
-                              year=year_input,search_term=search_term_input )
+                              year=year_input,search_term=search_term_input ,has_next = has_next, has_prev = has_prev)
 
         
     else:
