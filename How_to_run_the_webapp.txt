@@ -1,15 +1,40 @@
+For the data loading app:
+
+Put the new file out on the S3 server
+
+The version that runs is:
+C:\Users\dnarr\DIYC_History_app\load_logs.py
+
+In the terminal of VS Code, navigate to C:\Users\dnarr\DIYC_History_app
+
+type in py load_logs.py to run the program
+
+
+
+
+For the webapp:
 Start the EC2 instance
 RDP to it (you might need a new RDP file).  password comes from the DIYCHISTORY_keypair.pem on my local machine.  
 The RDP tab in AWS/EC2 will create it for you given the .pem file
 
-On the remote server, start CMD, and navigate to Apache24/bin, then run httpd.exe.  Ignore the errors about DocumentRoot
+On the remote server, start CMD, and navigate to Apache24/bin, then run httpd.exe (we don't have to do this if we run the .bat file)
 
-Open VS Code and navigate to the Python home: "C:\Program Files\Python313\diyc_history_search_app
-
-To activate the virtual environment run this:  env/Scripts/activate
+Open VS Code and navigate to the Python home: C:\Users\Administrator\Appdata\Local\Microsoft\WindowsApps\Python... something
 
 In the terminal, run python app.py
 
-From the local RDP machine, open http://localhost:8080/
+then open a browser and open http://localhost:8080
 
-remotl;y, then open a browser and open http://http://52.2.49.89:8080  (52.2.49.89 is the static IP address)
+
+To get to the webapp remotely:
+http://52.2.49.89:8080/
+on startup of the EC2 server, it runs run_diyc_history_search_app.bat. It activates the virtual environment and starts running app.py
+
+To make changes to the code (html or python), you have to stop it (Ctrl + c then type Y) in the terminal
+Then restart it by running he .bat file again from the terminal:
+C:\Program Files\Python313\diyc_history_search_app>run_diyc_history_search_app.bat
+
+Files are here:  C:\Program Files\Python313\diyc_history_search_app
+
+Print statements will appear in the console
+
